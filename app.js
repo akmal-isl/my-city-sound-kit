@@ -286,7 +286,7 @@
       id, user_id:userFolder, title, location:$("sound-location").value.trim() || null,
       description:$("sound-description").value.trim() || null,
       feeling:$("sound-feeling").value || null,
-      audio_path:audioPath, photo_path:photoPath, is_public:$("sound-public").checked
+      audio_path:audioPath, photo_path:photoPath, is_public:makePublic
     });
     if (insertError) {
       await client.storage.from("sound-audio").remove([audioPath]);
@@ -303,7 +303,7 @@
     $("save-recording").disabled = false;
     setStatus("save-status", "Saved. Your sound is now in your archive.");
     await loadArchive();
-    if ($("sound-public").checked) showShare(id);
+    if (makePublic) showShare(id);
   }
 
   function bindEvents() {
